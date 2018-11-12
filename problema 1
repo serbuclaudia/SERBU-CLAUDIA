@@ -1,0 +1,40 @@
+%rezolutia temporara de 2ms
+t=0:0.002:4; %afisarea a 2 perioade
+f=0.5; %frecventa
+w=2*pi*f; %pulsatia
+duty=25; %factor de umplere
+nivel=0.25;
+procent=0.75; %cat sa se afiseze din amplitudine
+s=(procent*square(w*t,duty))-nivel; %square genereaza un semnal dreptunghiular
+subplot(3,1,1) %imparte fereastra de tip fig intr-o matrice 3x1 de mici subgrafice se selecteaza subplotul 1 ca grafic curent
+plot(t,s),grid,xlabel('t,[s]'),ylabel('A,[V]')
+%plot produce graficul lui s versus t
+%xlabel si ylabel-completarea graficului cu etichete pe axe, legenda, text
+
+%rezolutia temporara de 20ms
+t=0:0.02:4; %afisarea a 2 perioade
+f=0.5; %frecventa
+w=2*pi*f; %pulsatia
+duty=25; %factor de umplere
+nivel=0.25;
+procent=0.75; %cat sa se afiseze din amplitudine
+s=(procent*square(w*t,duty))-nivel;
+subplot(3,1,2) %imparte fereastra de tip fig intr-o matrice 3x1 de mici subgrafice se selecteaza subplotul 1 ca grafic curent
+plot(t,s),grid,xlabel('t,[s]'),ylabel('A,[V]')
+
+%plot produce graficul lui s versus t
+%xlabel si ylabel-completarea graficului cu etichete pe axe, legenda, text
+
+%rezolutia temporara de 200ms
+t=0:0.2:4; %afisarea a 2 perioade
+f=0.5; %frecventa
+w=2*pi*f; %pulsatia
+duty=25; %factor de umplere
+nivel=0.25;
+procent=0.75; %cat sa se afiseze din amplitudine
+s=(procent*square(w*t,duty))-nivel;
+subplot(3,1,3) %imparte fereastra de tip fig intr-o matrice 3x1 de mici subgrafice se selecteaza subplotul 1 ca grafic curent
+plot(t,s),grid,xlabel('t,[s]'),ylabel('A,[V]')
+
+%plot produce graficul lui s versus t
+%xlabel si ylabel-completarea graficului cu etichete pe axe, legenda, text
