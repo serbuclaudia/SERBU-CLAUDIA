@@ -1,0 +1,61 @@
+clc %curata fereastra la fiecare rulare noua a programului
+%in problema avem T=40s dar pentru a respecta D=16
+%dupa cum se vede in figura semnalului triunghiular
+%simetric monoalternant D=T/4=>T=64s
+T=64;
+f=1/T;
+w=2*pi*f;
+t = 0:0.0001:4*T;
+%reprezint 4 perioade 
+N=50;
+C = zeros(1,2*N+1); %am initializat vectorul de coeficienti cu valori nule
+x=(sawtooth(w*t,0.5)+abs(sawtooth(w*t,0.5)))/2; %am construit  semnalul triunghiular monoalternant
+for n = -N:N
+    C(n+N+1)=1/T*integral(@(t)(1/2*sawtooth(w*t,0.5)+1/2*abs(sawtooth(w*t,0.5))).*exp(-1j*n*w*t),0,T);
+    %calculul propriu-zis al coeficientiilor cu formula analitica
+    re = real(C(n+N+1));
+    im = imag(C(n+N+1));
+    if abs(re)<10^-10 %daca modulul partii reale e mai mic decat 10^-10 (extrem de mic) atunci il voi neglija
+                      
+        re = 0;
+     end
+    if abs(im)<10^-10 %daca modulul partii imaginare e mai mic decat 10^-10(extrem de mic) il voi neglija
+        im = 0;
+    end
+    C(n+N+1) = re+1j*im ;  %ca index intr-un vector nu pot avea valori negative
+end
+xr = 0;
+for n = -N:N
+    xr = xr + C(n+N+1)*exp(1j*n*w*t) ; %construim seria Fourier
+end
+figure(1);
+hold on %pastreaza graficul anterior, fara eliminarea acestuia la adaugarea unui nou grafic
+plot(t,real(xr),':r',t,imag(xr),':r'); %reprez. semnalului reconstruit
+plot(t,x); %reprez. semnalului initial
+axis([-0 256 -0.1 1.1]) %delimitarea axelor de coordonate
+xlabel('Timp[s]');
+ylabel('x(t) si xr(t)'); %xlabel si ylabel-completarea graficului cu etichete pe axe, legenda, text
+
+
+title('Suprapunerea semnalelor x(t)[continua] si xr(t)[intrerupta]')
+
+
+figure(2);
+hold on %pastreaza graficul anterior, fara eliminarea acestuia la adaugarea unui nou grafic
+stem((-N:N)*w,2*abs(C)); %functia stem este folosita pentru reprezentarea
+                         %unor functii sau seturi de valori discrete
+                          
+plot((-N:N)*w,2*abs(C),':r'); 
+xlabel('Pulsatia w [rad/s]');
+ylabel('Amplitudinile Ak=2|C(nw)|');
+axis([-5.1 5.1 0 0.55]) % delimitarea axelor de coordonate
+title('Spectrul de Amplitudini');
+
+
+%Cu ajutorul analizei Fourier
+%putem exprima orice semnal periodic,in conditii precizate
+%cu anumite criterii de suficienta, Criteriul Diriclet
+%intr-o suma finita de semnale elementare
+%Aceasta analiza este utila in cazul analizei 
+%sistemelor liniare, permite aflare unui semnal 
+%in functie de spectrul de amplitudine/faza
