@@ -1,8 +1,8 @@
 clc %curata fereastra la fiecare rulare noua a programului
-%in problema avem T=40s dar pentru a respecta D=16
+%in problema avem T=40s dar pentru a respecta D=20
 %dupa cum se vede in figura semnalului triunghiular
-%simetric monoalternant D=T/4=>T=64s
-T=64;
+%simetric monoalternant D=T/4=>T=80s
+T=80;
 f=1/T;
 w=2*pi*f;
 t = 0:0.0001:4*T;
@@ -32,7 +32,7 @@ figure(1);
 hold on %pastreaza graficul anterior, fara eliminarea acestuia la adaugarea unui nou grafic
 plot(t,real(xr),':r',t,imag(xr),':r'); %reprez. semnalului reconstruit
 plot(t,x); %reprez. semnalului initial
-axis([-0 256 -0.1 1.1]) %delimitarea axelor de coordonate
+axis([-0 315 -0.1 1.1]) %delimitarea axelor de coordonate
 xlabel('Timp[s]');
 ylabel('x(t) si xr(t)'); %xlabel si ylabel-completarea graficului cu etichete pe axe, legenda, text
 
@@ -58,4 +58,4 @@ title('Spectrul de Amplitudini');
 %intr-o suma finita de semnale elementare
 %Aceasta analiza este utila in cazul analizei 
 %sistemelor liniare, permite aflare unui semnal 
-%in functie de spectrul de amplitudine/faza
+%in functie de spectrul de amplitudine sau faza
